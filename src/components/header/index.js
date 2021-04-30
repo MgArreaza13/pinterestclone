@@ -7,7 +7,7 @@ import {
   Search,
   Textsms,
 } from "@material-ui/icons";
-import React from "react";
+import React, { useState } from "react";
 import {
   HeaderContainer,
   LogoContainer,
@@ -18,7 +18,16 @@ import {
   IconsContainer,
 } from "./styles";
 
-function Header() {
+function Header({ onSubmit }) {
+
+  const [input, setInput] = useState("")
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    onSubmit(input)
+    setInput("")
+  }
+
   return (
     <HeaderContainer>
       <LogoContainer>
@@ -38,8 +47,8 @@ function Header() {
             <Search />
           </IconButton>
           <form>
-            <input type="text" placeholder="Search..." />
-            <button type="submit"></button>
+            <input value={input} type="text" placeholder="Search..." onChange={(e)=> {setInput(e.target.value)}} />
+            <button type="submit" onClick={handleSubmit}></button>
           </form>
         </SearchBar>
       </SearchContainer>
